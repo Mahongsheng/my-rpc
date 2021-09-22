@@ -1,4 +1,4 @@
-package com.mhsfire.myrpc;
+package com.mhsfire.myrpc.common;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 反射工具类
  *
- * @PACKAGE_NAME: com.mhsfire.myrpc
+ * @PACKAGE_NAME: com.mhsfire.myrpc.common
  * @NAME: ReflectionUtils
  * @AUTHOR: Hansel Ma
  * @DATE: 2021/9/22

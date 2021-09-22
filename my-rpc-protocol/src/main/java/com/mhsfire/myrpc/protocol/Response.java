@@ -1,11 +1,11 @@
-package com.mhsfire.myrpc;
+package com.mhsfire.myrpc.protocol;
 
 import lombok.Data;
 
 /**
  * 表示RPC的返回
  *
- * @PACKAGE_NAME: com.mhsfire.myrpc
+ * @PACKAGE_NAME: com.mhsfire.myrpc.protocol
  * @NAME: Response
  * @AUTHOR: Hansel Ma
  * @DATE: 2021/9/22
