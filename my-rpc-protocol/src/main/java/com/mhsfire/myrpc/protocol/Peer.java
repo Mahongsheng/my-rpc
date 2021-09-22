@@ -1,5 +1,6 @@
 package com.mhsfire.myrpc.protocol;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -12,6 +13,7 @@ import lombok.Data;
  * @PROJECT_NAME: my-rpc
  */
 @Data
+@AllArgsConstructor
 public class Peer {
     private String host;
 
