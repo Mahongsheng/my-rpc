@@ -28,6 +28,7 @@ public class RandomTransportSelector implements TransportSelector {
     private List<TransportClient> clients;
 
     public RandomTransportSelector() {
+        // 为防止多线程时同时使用相同client，使用线程安全的列表
         clients = Collections.synchronizedList(new ArrayList<>());
     }
 

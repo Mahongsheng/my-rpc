@@ -26,9 +26,12 @@ public interface TransportSelector {
     /**
      * 释放用完的client
      *
-     * @param client
+     * @param client 网络client
      */
     void release(TransportClient client);
 
+    /**
+     * 关闭连接
+     */
     void close();
 }

@@ -15,7 +15,13 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Peer {
+    /**
+     * IP地址
+     */
     private String host;
 
+    /**
+     * 端口
+     */
     private int port;
 }

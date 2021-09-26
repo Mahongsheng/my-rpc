@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * 表示服务
+ * 表示特定类的特定方法，即用来描述某次服务
  *
  * @PACKAGE_NAME: com.mhsfire.myrpc.protocol
  * @NAME: ServiceDescriptor
@@ -21,22 +21,42 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ServiceDescriptor {
+
+    /**
+     * 类名
+     */
     private String clazz;
 
+    /**
+     * 方法名
+     */
     private String method;
 
+    /**
+     * 返回类型
+     */
     private String returnType;
 
+    /**
+     * 参数类型
+     */
     private String[] parameterTypes;
 
-    public static ServiceDescriptor from(Class clazz, Method method){
+    /**
+     * 传入类实例与需要调用的方法，生成一个服务的描述
+     *
+     * @param clazz  类实例
+     * @param method 方法实例
+     * @return 服务的描述
+     */
+    public static ServiceDescriptor from(Class clazz, Method method) {
         ServiceDescriptor sdp = new ServiceDescriptor();
         sdp.setClazz(clazz.getName());
         sdp.setMethod(method.getName());
         sdp.setReturnType(method.getReturnType().getName());
         Class<?>[] parameterClasses = method.getParameterTypes();
         String[] parameterTypes = new String[parameterClasses.length];
-        for (int i=0; i<parameterClasses.length; i++){
+        for (int i = 0; i < parameterClasses.length; i++) {
             parameterTypes[i] = parameterClasses[i].getName();
         }
         sdp.setParameterTypes(parameterTypes);

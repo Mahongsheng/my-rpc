@@ -36,6 +36,7 @@ public class RemoteInvoker implements InvocationHandler {
         request.setService(ServiceDescriptor.from(clazz, method));
         request.setParameters(args);
 
+        // 远程调用
         Response resp = invokeRemote(request);
         if (resp == null || resp.getCode() != 0) {
             throw new IllegalStateException("fail to invoke remote: " + resp);
@@ -44,17 +45,30 @@ public class RemoteInvoker implements InvocationHandler {
         return resp.getData();
     }
 
+    /**
+     * RPC远程调用
+     *
+     * @param request 请求
+     * @return 请求结果
+     */
     private Response invokeRemote(Request request) {
-        Response resp = null;
+        Response resp;
         TransportClient client = null;
 
         try {
+            // 随机选择一个已经连接好的Client网络模块
             client = selector.select();
 
+            // 序列化请求
             byte[] outBytes = encoder.encode(request);
-            InputStream recive = client.write(new ByteArrayInputStream(outBytes));
 
-            byte[] inBytes = IOUtils.readFully(recive, recive.available());
+            // 发送请求，即向输入流中写入数据并获得响应数据
+            InputStream receive = client.write(new ByteArrayInputStream(outBytes));
+
+            // 将响应数据转为字节数组
+            byte[] inBytes = IOUtils.readFully(receive, receive.available());
+
+            // 反序列化
             resp = decoder.decode(inBytes, Response.class);
 
         } catch (IOException e) {

@@ -22,11 +22,14 @@ public class HTTPTransportClient implements TransportClient {
 
     @Override
     public void connect(Peer peer) {
+        // 因为在此使用的是TCP短连接（想要使用长连接可以考虑套接字）
+        // 所以connect方法只是象征性初始化url数据，没有进行网络请求
         this.url = "http://" + peer.getHost() + ":" + peer.getPort();
     }
 
     @Override
     public InputStream write(InputStream data) {
+        // 在write方法中，我们进行了网络请求
         try {
             HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
             httpURLConnection.setDoOutput(true);
@@ -50,6 +53,6 @@ public class HTTPTransportClient implements TransportClient {
 
     @Override
     public void close() {
-
+        // 同connect方法，close方法只是进行了一次模拟
     }
 }

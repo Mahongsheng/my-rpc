@@ -14,9 +14,24 @@ import java.io.InputStream;
  * @PROJECT_NAME: my-rpc
  */
 public interface TransportClient {
+
+    /**
+     * 创建连接
+     *
+     * @param peer 服务端节点
+     */
     void connect(Peer peer);
 
+    /**
+     * 向流中写入数据
+     *
+     * @param data 数据流
+     * @return 响应数据流
+     */
     InputStream write(InputStream data);
 
+    /**
+     * 关闭连接
+     */
     void close();
 }

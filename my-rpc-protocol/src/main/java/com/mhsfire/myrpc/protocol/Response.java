@@ -3,7 +3,7 @@ package com.mhsfire.myrpc.protocol;
 import lombok.Data;
 
 /**
- * 表示RPC的返回
+ * 表示RPC调用后的响应
  *
  * @PACKAGE_NAME: com.mhsfire.myrpc.protocol
  * @NAME: Response

@@ -13,6 +13,13 @@ import lombok.Data;
  */
 @Data
 public class Request {
+    /**
+     * 请求中包含的服务描述，用于定位需要调用的类的方法（排除重载）
+     */
     private ServiceDescriptor service;
+
+    /**
+     * 调用的方法需要的参数（传参）
+     */
     private Object[] parameters;
 }

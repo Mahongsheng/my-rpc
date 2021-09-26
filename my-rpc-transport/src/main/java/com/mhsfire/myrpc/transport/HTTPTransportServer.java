@@ -5,7 +5,6 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +13,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * 服务器实现
+ * 服务端实现
  *
  * @PACKAGE_NAME: com.mhsfire.myrpc.transport
  * @NAME: HTTPTransportServer
@@ -30,6 +29,7 @@ public class HTTPTransportServer implements TransportServer {
 
     @Override
     public void init(int port, RequestHandler handler) {
+        // 挂载handler和服务端
         this.handler = handler;
         this.server = new Server(port);
 
@@ -60,7 +60,17 @@ public class HTTPTransportServer implements TransportServer {
         }
     }
 
+    /**
+     * 内部类
+     */
     class RequestServlet extends HttpServlet {
+        /**
+         * 存疑
+         *
+         * @param req
+         * @param resp
+         * @throws IOException
+         */
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
             log.info("client connect");
