@@ -15,6 +15,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
+ * RPC服务端，可以传入自定义的RPC配置或使用默认配置
+ *
  * @PACKAGE_NAME: com.mhsfire.myrpc.server
  * @NAME: RpcServer
  * @AUTHOR: Hansel Ma
@@ -50,30 +52,54 @@ public class RpcServer {
         this.serviceInvoker = new ServiceInvoker();
     }
 
+    /**
+     * 注册服务实例
+     *
+     * @param interfaceClass 服务的描述
+     * @param bean           服务实例
+     * @param <T>            泛型标识符
+     */
     public <T> void register(Class<T> interfaceClass, T bean) {
         serviceManager.register(interfaceClass, bean);
     }
 
+    /**
+     * 开启监听并等待连接
+     */
     public void start() {
         this.net.start();
     }
 
+    /**
+     * 关闭监听
+     */
     public void stop() {
         this.net.stop();
     }
 
+    /**
+     * 重写请求处理器
+     */
     private RequestHandler handler = new RequestHandler() {
         @Override
-        public void onRequest(InputStream recive, OutputStream toResp) {
+        public void onRequest(InputStream receive, OutputStream toResp) {
             Response resp = new Response();
 
             try {
-                byte[] inBytes = IOUtils.readFully(recive, recive.available());
+                // 读取请求
+                byte[] inBytes = IOUtils.readFully(receive, receive.available());
 
+                // 反序列化
                 Request request = decoder.decode(inBytes, Request.class);
                 log.info("get request: {}", request);
+
+                // 找到服务的实例
                 ServiceInstance sis = serviceManager.lookup(request);
+
+                // 调用方法并获得返回值
                 Object ret = serviceInvoker.invoke(sis, request);
+
+                // 将结果写入响应
                 resp.setData(ret);
 
             } catch (Exception e) {
@@ -82,7 +108,10 @@ public class RpcServer {
                 resp.setMessage("RpcServer got error: " + e.getClass().getName() + " : " + e.getMessage());
             } finally {
                 try {
+                    // 序列化
                     byte[] outBytes = encoder.encode(resp);
+
+                    // 写入流中
                     toResp.write(outBytes);
 
                     log.info("response client");

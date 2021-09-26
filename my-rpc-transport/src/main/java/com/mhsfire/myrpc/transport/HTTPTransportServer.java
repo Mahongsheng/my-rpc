@@ -65,11 +65,7 @@ public class HTTPTransportServer implements TransportServer {
      */
     class RequestServlet extends HttpServlet {
         /**
-         * 存疑
-         *
-         * @param req
-         * @param resp
-         * @throws IOException
+         * 重写了doPost方法，因为client使用post来进行请求
          */
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {

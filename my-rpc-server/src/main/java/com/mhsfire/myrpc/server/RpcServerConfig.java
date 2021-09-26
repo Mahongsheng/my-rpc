@@ -9,7 +9,7 @@ import com.mhsfire.myrpc.transport.TransportServer;
 import lombok.Data;
 
 /**
- * Server配置
+ * Server连接配置，包括网络模块、序列化、反序列化、端口
  *
  * @PACKAGE_NAME: com.mhsfire.myrpc.server
  * @NAME: RpcServerConfig

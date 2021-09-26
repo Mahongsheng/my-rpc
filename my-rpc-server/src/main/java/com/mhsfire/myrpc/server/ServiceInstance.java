@@ -6,7 +6,7 @@ import lombok.Data;
 import java.lang.reflect.Method;
 
 /**
- * 服务的实例
+ * 服务的实例，包含类实例与方法
  *
  * @PACKAGE_NAME: com.mhsfire.myrpc.server
  * @NAME: ServiceInstance
@@ -17,6 +17,13 @@ import java.lang.reflect.Method;
 @Data
 @AllArgsConstructor
 public class ServiceInstance {
+    /**
+     * 类实例
+     */
     private Object target;
+
+    /**
+     * 方法
+     */
     private Method method;
 }
